@@ -1,0 +1,44 @@
+[
+    {
+        "id": "f362a21cf828f20d",
+        "type": "influxdb in",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "77c1a5249ee80065",
+        "name": "",
+        "query": "from(bucket: \"try\")\n  |> range(start: -30m)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"product weight\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> last()",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "PICO",
+        "x": 720,
+        "y": 220,
+        "wires": [
+            [
+                "6893aa098236676f"
+            ]
+        ]
+    },
+    {
+        "id": "77c1a5249ee80065",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "Send data to influence",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://172.29.99.198:8086",
+        "timeout": "10",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "73b93b1597f7b752",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0"
+        }
+    }
+]
