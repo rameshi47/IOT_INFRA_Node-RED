@@ -1,0 +1,443 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "cede8b5f2b0afcfa",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "e5fdd0f8da759f76",
+            "6e270529d6d259b7",
+            "c43de06b4f16958c",
+            "1aef97541ca5177d"
+        ],
+        "x": 254,
+        "y": 459,
+        "w": 752,
+        "h": 202
+    },
+    {
+        "id": "72241cefa9947043",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "InfluxDB",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://172.17.0.3:8086",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "e1ee2ca08ff9a85f",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "none",
+        "titleBarStyle": "hidden",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "593c1ce046635f10",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "853e4a38aded14cf",
+        "type": "ui-page",
+        "name": "CheckWeigher",
+        "ui": "e1ee2ca08ff9a85f",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "593c1ce046635f10",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "e1d35432a9913742",
+        "type": "ui_tab",
+        "name": "UI",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "df34d2ae4e8f1b7b",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "true",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "438538d177a6c74b",
+        "type": "ui_group",
+        "name": "Loadcell Value",
+        "tab": "e1d35432a9913742",
+        "order": 1,
+        "disp": false,
+        "width": "38",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e5fdd0f8da759f76",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "g": "cede8b5f2b0afcfa",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 350,
+        "y": 500,
+        "wires": [
+            [
+                "6e270529d6d259b7"
+            ]
+        ]
+    },
+    {
+        "id": "6e270529d6d259b7",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "cede8b5f2b0afcfa",
+        "name": "function 1",
+        "func": "// Generate a random number between 1 (inclusive) and 50 (inclusive)\nvar randomNumber = Math.floor(Math.random() * 50) + 1;\n\n// Assign the random number to msg.payload\nmsg.payload = randomNumber;\n\n// Return the message object for the next node\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 500,
+        "wires": [
+            [
+                "c43de06b4f16958c",
+                "1aef97541ca5177d"
+            ]
+        ]
+    },
+    {
+        "id": "c43de06b4f16958c",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "g": "cede8b5f2b0afcfa",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "1aef97541ca5177d",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "g": "cede8b5f2b0afcfa",
+        "influxdb": "72241cefa9947043",
+        "name": "DB",
+        "measurement": "loadcell",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "pico",
+        "bucket": "checkweigher",
+        "x": 930,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "d425d1521d379c34",
+        "type": "influxdb in",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "72241cefa9947043",
+        "name": "send data to UI",
+        "query": "from(bucket: \"checkweigher\")\n  |> range(start: -24h)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"loadcell\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> last()\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "pico",
+        "x": 600,
+        "y": 240,
+        "wires": [
+            [
+                "e16ccfe1325116a9"
+            ]
+        ]
+    },
+    {
+        "id": "660bdfba9ce8cf6f",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "d425d1521d379c34"
+            ]
+        ]
+    },
+    {
+        "id": "e16ccfe1325116a9",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 2",
+        "func": "if (!msg.payload || msg.payload.length === 0) {\n    // No data returned\n    msg.payload = [{\n        date: \"-\",\n        time: \"-\",\n        value: \"-\"\n    }];\n    return msg;\n}\n\nlet row = msg.payload[0];\n\nmsg.payload = [{\n    date: new Date(row._time).toLocaleDateString(),\n    time: new Date(row._time).toLocaleTimeString(),\n    value: row._value\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 240,
+        "wires": [
+            [
+                "f83cd55443e612a2"
+            ]
+        ]
+    },
+    {
+        "id": "f83cd55443e612a2",
+        "type": "ui_table",
+        "z": "f6f2187d.f17ca8",
+        "group": "438538d177a6c74b",
+        "name": "",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "columns": [
+            {
+                "field": "date",
+                "title": "Date",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "time",
+                "title": "Time",
+                "width": "",
+                "align": "center",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "value",
+                "title": "Value",
+                "width": "",
+                "align": "right",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1030,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "7b9c3b3a761e5607",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0",
+            "@flowfuse/node-red-dashboard": "1.30.1",
+            "node-red-dashboard": "3.6.6",
+            "node-red-node-ui-table": "0.4.5"
+        }
+    }
+]
