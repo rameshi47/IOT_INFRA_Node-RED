@@ -1,0 +1,185 @@
+[
+    {
+        "id": "48c616587b454150",
+        "type": "tab",
+        "label": "TCP to PostgreSQL",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "postgres_config",
+        "type": "postgreSQLConfig",
+        "name": "PostgreSQL",
+        "host": "postgres_db",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "checkweigher",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": "",
+        "maxFieldType": "num",
+        "idle": "",
+        "idleFieldType": "num",
+        "connectionTimeout": "",
+        "connectionTimeoutFieldType": "num",
+        "user": "postgres",
+        "userFieldType": "str",
+        "password": "yourpassword",
+        "passwordFieldType": "str"
+    },
+    {
+        "id": "9a4922be609b842b",
+        "type": "tcp in",
+        "z": "48c616587b454150",
+        "name": "TCP Data Receiver",
+        "server": "client",
+        "host": "192.168.2.12",
+        "port": "5000",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "\\n",
+        "topic": "",
+        "trim": true,
+        "base64": false,
+        "tls": "",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "9d7f770a86909c38"
+            ]
+        ]
+    },
+    {
+        "id": "9d7f770a86909c38",
+        "type": "function",
+        "z": "48c616587b454150",
+        "name": "Parse TCP Data",
+        "func": "try {\n    let parsed;\n\n    // Already a JSON object (from Inject node)\n    if (typeof msg.payload === 'object' && msg.payload !== null) {\n        parsed = msg.payload;\n    }\n    // JSON string format: {\"product_name\":\"Widget\",\"product_count\":10,\"weight\":1.5}\n    else if (typeof msg.payload === 'string' && msg.payload.startsWith('{')) {\n        parsed = JSON.parse(msg.payload);\n    }\n    // CSV format: Widget,10,1.5\n    else if (typeof msg.payload === 'string' && msg.payload.includes(',')) {\n        const parts = msg.payload.split(',');\n        parsed = {\n            product_name: parts[0].trim(),\n            product_count: parseInt(parts[1]),\n            weight: parseFloat(parts[2])\n        };\n    }\n    // Buffer\n    else if (Buffer.isBuffer(msg.payload)) {\n        parsed = {\n            product_name: 'unknown',\n            product_count: msg.payload.readUInt16BE(0),\n            weight: msg.payload.readFloatBE(2)\n        };\n    }\n    else {\n        node.error('Unrecognized format: ' + typeof msg.payload, msg);\n        return null;\n    }\n\n    msg.payload = parsed;\n    return msg;\n\n} catch (e) {\n    node.error('Parse error: ' + e.message, msg);\n    return null;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 200,
+        "wires": [
+            [
+                "823da24fb81781a3"
+            ]
+        ]
+    },
+    {
+        "id": "823da24fb81781a3",
+        "type": "function",
+        "z": "48c616587b454150",
+        "name": "Build INSERT Query",
+        "func": "const data = msg.payload;\n\n// Pass query directly via msg.query — skips Mustache template\nmsg.query = \"INSERT INTO sensor_data (product_name, product_count, weight) VALUES ('\" + data.product_name + \"', \" + data.product_count + \", \" + data.weight + \");\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 200,
+        "wires": [
+            [
+                "fad71936c382557a"
+            ]
+        ]
+    },
+    {
+        "id": "fad71936c382557a",
+        "type": "postgresql",
+        "z": "48c616587b454150",
+        "name": "Insert to PostgreSQL",
+        "query": "",
+        "postgreSQLConfig": "postgres_config",
+        "split": false,
+        "rowsPerMsg": "1",
+        "outputs": 1,
+        "x": 840,
+        "y": 200,
+        "wires": [
+            [
+                "cba718ad761ec9df"
+            ]
+        ]
+    },
+    {
+        "id": "cba718ad761ec9df",
+        "type": "debug",
+        "z": "48c616587b454150",
+        "name": "Debug Insert Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "68a4eb0dbc661048",
+        "type": "inject",
+        "z": "48c616587b454150",
+        "name": "Test Inject",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 400,
+        "wires": [
+            [
+                "d1f42980bc76ffcc"
+            ]
+        ]
+    },
+    {
+        "id": "d1f42980bc76ffcc",
+        "type": "function",
+        "z": "48c616587b454150",
+        "name": "Generate Random Weight",
+        "func": "// Get current count from flow context, start at 1\nlet count = flow.get('product_count') || 0;\ncount = count + 1;\nflow.set('product_count', count);\n\n// Fixed product name, sequential count, random weight between 0.5 and 10.0\nmsg.payload = {\n    product_name: 'Widget_A',\n    product_count: count,\n    weight: Math.round((Math.random() * 9.5 + 0.5) * 100) / 100\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 350,
+        "wires": [
+            [
+                "823da24fb81781a3"
+            ]
+        ]
+    },
+    {
+        "id": "63daa364b3b36286",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-postgresql": "0.15.4"
+        }
+    }
+]
