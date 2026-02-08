@@ -1,0 +1,65 @@
+services:
+  # ─── PostgreSQL ───
+  postgres:
+    image: postgres:16
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: checkweigher
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # auto run on first start
+    networks:
+      - app_network
+
+  # ─── pgAdmin (GUI for PostgreSQL) ───
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - app_network
+
+  # ─── Node-RED ───
+  nodered:
+    image: nodered/node-red:latest
+    container_name: node_red
+    ports:
+      - "1880:1880"
+    volumes:
+      - nodered_data:/usr/local/share/.node-red
+    depends_on:
+      - postgres
+    networks:
+      - app_network
+
+  # ─── Appsmith ───
+  appsmith:
+    image: appsmith/appsmith-ce:latest
+    container_name: appsmith
+    ports:
+      - "8080:80"
+    volumes:
+      - appsmith_data:/appsmith/data
+    networks:
+      - app_network
+
+# ─── Shared network so containers can talk to each other ───
+networks:
+  app_network:
+    driver: bridge
+
+# ─── Data persistence ───
+volumes:
+  postgres_data:
+  nodered_data:
+  appsmith_data:
