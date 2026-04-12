@@ -44,7 +44,7 @@ services:
 
   # ─── Appsmith ───
   appsmith:
-    image: ndex.docker.io/appsmith/appsmith-ee:latest
+    image: index.docker.io/appsmith/appsmith-ee:latest
     container_name: appsmith
     ports:
       - "8080:80"
