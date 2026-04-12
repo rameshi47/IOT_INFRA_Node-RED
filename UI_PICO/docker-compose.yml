@@ -5,7 +5,7 @@ services:
     container_name: postgres_db
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_PASSWORD: Babu@baku1212
       POSTGRES_DB: checkweigher
     ports:
       - "5432:5432"
@@ -44,7 +44,7 @@ services:
 
   # ─── Appsmith ───
   appsmith:
-    image: appsmith/appsmith-ce:latest
+    image: ndex.docker.io/appsmith/appsmith-ee:latest
     container_name: appsmith
     ports:
       - "8080:80"
